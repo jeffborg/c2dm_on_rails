@@ -10,8 +10,8 @@ module C2dm
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
                     "Authorization" => "GoogleLogin auth=#{token}" }
 
-        data = {registration_id: => noty.device.registration_id,
-          collapse_key: => noty.collapse_key
+        data = {:registration_id => noty.device.registration_id,
+                :collapse_key => noty.collapse_key
             }
         noty.data.each do |k, v|
           data["data.#{k}"] = v

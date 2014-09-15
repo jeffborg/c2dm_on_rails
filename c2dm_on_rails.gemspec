@@ -52,15 +52,18 @@ easily add Android Cloud to Device Messaging support to your Rails application.
       s.add_runtime_dependency(%q<jeweler>, [">= 0"])
       s.add_runtime_dependency(%q<configatron>, [">= 0"])
       s.add_runtime_dependency(%q<gdata_19>, [">= 0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 0"])
     else
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<configatron>, [">= 0"])
       s.add_dependency(%q<gdata_19>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
     end
   else
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<configatron>, [">= 0"])
     s.add_dependency(%q<gdata_19>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
   end
 end
 

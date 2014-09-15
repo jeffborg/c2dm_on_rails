@@ -10,8 +10,8 @@ module C2dm
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
                     "Authorization" => "GoogleLogin auth=#{token}" }
 
-        message_data = noty.data.map{|k, v| "&data.#{URI.escape(k.to_s)}=#{URI.escape(v.to_s)}"}.reduce{|k, v| k + v}
-        data = "registration_id=#{noty.device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
+        message_data = noty.data.map{|k, v| v.to_s.to_query("data.#{k}")}.join "&"
+        data = "#{noty.device.registration_id.to_query('registration_id')}&#{noty.collapse_key.to_query('collapse_key')}&#{message_data}"
 
         data = data + "&delay_while_idle" if noty.delay_while_idle
 

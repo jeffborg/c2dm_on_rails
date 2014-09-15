@@ -10,10 +10,13 @@ module C2dm
         headers = { "Content-Type" => "application/x-www-form-urlencoded", 
                     "Authorization" => "GoogleLogin auth=#{token}" }
 
-        message_data = noty.data.map{|k, v| v.to_s.to_query("data.#{k}")}.join "&"
-        data = "#{noty.device.registration_id.to_query('registration_id')}&#{noty.collapse_key.to_query('collapse_key')}&#{message_data}"
-
-        data = data + "&delay_while_idle" if noty.delay_while_idle
+        data = {registration_id: => noty.device.registration_id,
+          collapse_key: => noty.collapse_key
+            }
+        noty.data.each do |k, v|
+          data["data.#{k}"] = v
+        end
+        data["delay_while_idle"] = true if noty.delay_while_idle
 
         url_string = configatron.c2dm.api_url
         url=URI.parse url_string
@@ -21,7 +24,7 @@ module C2dm
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
    
-        resp, dat = http.post(url.path, data, headers)
+        resp, dat = http.post(url.path, data.to_query, headers)
 
         return {:code => resp.code.to_i, :message => dat} 
       end
